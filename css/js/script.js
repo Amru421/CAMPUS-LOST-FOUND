@@ -55,7 +55,11 @@ if (items.length === 0) {
         }
     ];
 
-    localStorage.setItem("lostFoundItems", JSON.stringify(items));
+    try {
+        localStorage.setItem("lostFoundItems", JSON.stringify(items));
+    } catch (error) {
+        console.error("Unable to save sample lost-and-found items.", error);
+    }
 }
 
 
