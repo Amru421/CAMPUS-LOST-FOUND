@@ -8,6 +8,29 @@ try {
     console.error("Unable to parse saved lost-and-found items.", error);
 }
 
+if (!Array.isArray(items)) {
+    console.error("Saved lost-and-found items must be an array.");
+    items = [];
+}
+
+const validItems = items.filter(item =>
+    item &&
+    typeof item === "object" &&
+    !Array.isArray(item) &&
+    typeof item.name === "string" &&
+    item.name.trim() &&
+    typeof item.location === "string" &&
+    item.location.trim() &&
+    (item.type === "lost" || item.type === "found")
+);
+
+if (validItems.length !== items.length) {
+    console.warn("Ignored invalid saved lost-and-found items.");
+}
+
+items = validItems;
+
+
 // If no items exist, add sample items
 if (items.length === 0) {
 
