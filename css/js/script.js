@@ -1,11 +1,13 @@
 // Get stored items
 let items = [];
+let storedItems = null;
 
 try {
-    const storedItems = localStorage.getItem("lostFoundItems");
+    storedItems = localStorage.getItem("lostFoundItems");
     items = storedItems ? JSON.parse(storedItems) : [];
 } catch (error) {
     console.error("Unable to parse saved lost-and-found items.", error);
+    storedItems = null;
 }
 
 if (!Array.isArray(items)) {
@@ -31,8 +33,8 @@ if (validItems.length !== items.length) {
 items = validItems;
 
 
-// If no items exist, add sample items
-if (items.length === 0) {
+// Add sample items only when there is no saved list yet
+if (storedItems === null && items.length === 0) {
 
     items = [
         {
