@@ -71,11 +71,17 @@ let foundItems = items.filter(item => item.type === "found");
 
 
 // Update dashboard numbers
-document.getElementById("lostCount").textContent = lostItems.length;
+function updateCount(elementId, count) {
+    const counter = document.getElementById(elementId);
 
-document.getElementById("foundCount").textContent = foundItems.length;
+    if (counter) {
+        counter.textContent = count;
+    }
+}
 
-document.getElementById("totalCount").textContent = items.length;
+updateCount("lostCount", lostItems.length);
+updateCount("foundCount", foundItems.length);
+updateCount("totalCount", items.length);
 
 
 // Display recent items
