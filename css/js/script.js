@@ -82,20 +82,23 @@ if (recentContainer) {
     items.slice(-6).reverse().forEach(item => {
 
         let div = document.createElement("div");
-
         div.className = "item";
 
-        div.innerHTML = `
-            <div class="item-icon">${item.icon || "📦"}</div>
+        const icon = document.createElement("div");
+        icon.className = "item-icon";
+        icon.textContent = typeof item.icon === "string" && item.icon ? item.icon : "📦";
 
-            <h3>${item.name}</h3>
+        const name = document.createElement("h3");
+        name.textContent = item.name;
 
-            <p>📍 ${item.location}</p>
+        const location = document.createElement("p");
+        location.textContent = `📍 ${item.location}`;
 
-            <span class="badge ${item.type}">
-                ${item.type === "lost" ? "Lost" : "Found"}
-            </span>
-        `;
+        const badge = document.createElement("span");
+        badge.className = `badge ${item.type}`;
+        badge.textContent = item.type === "lost" ? "Lost" : "Found";
+
+        div.append(icon, name, location, badge);
 
         recentContainer.appendChild(div);
 
